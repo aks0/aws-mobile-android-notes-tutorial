@@ -14,7 +14,6 @@ package com.amazonaws.mobile.samples.mynotes.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 

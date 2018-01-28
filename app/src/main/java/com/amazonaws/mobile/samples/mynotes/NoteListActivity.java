@@ -29,6 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -317,13 +318,18 @@ public class NoteListActivity
             }
 
             // Remove the item from the database
-            ContentResolver resolver = getContentResolver();
-            int position = holder.getAdapterPosition();
-            Uri itemUri = NotesContentContract.Notes.uriBuilder(holder.getNote().getNoteId());
-            int count = resolver.delete(itemUri, null, null);
-            if (count > 0) {
-                notifyItemRemoved(position);
-            }
+            final int position = holder.getAdapterPosition();
+            AsyncQueryHandler queryHandler = new AsyncQueryHandler(getContentResolver()) {
+                @Override
+                protected void onDeleteComplete(int token, Object cookie, int result) {
+                    super.onDeleteComplete(token, cookie, result);
+                    notifyItemRemoved(position);
+                    Log.d("NoteListActivity", "delete completed");
+                }
+            };
+
+            Uri itemUri = ContentUris.withAppendedId(NotesContentContract.Notes.CONTENT_URI, holder.getNote().getId());
+            queryHandler.startDelete(1, null, itemUri, null, null);
         }
     }
 }
