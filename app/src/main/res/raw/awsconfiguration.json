@@ -12,6 +12,14 @@
   "IdentityManager": {
     "Default": {}
   },
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "us-east-1_FrZ3bGn7m",
+      "AppClientId": "1dvngvg2cvvjgetaddopoode61",
+      "AppClientSecret": "1usgtrm83oudq9aq77b19qndrfh04fphq04svpr5nllfsbavneld",
+      "Region": "us-east-1"
+    }
+  },
   "PinpointAnalytics": {
     "Default": {
       "AppId": "31f2469057d34b13b7d61d27ccdb0adb",
